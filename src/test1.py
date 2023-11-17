@@ -7,6 +7,7 @@ operadoresR = [">", "<", "=="]
 asignacion = ["="]
 
 tokensSeñalados = []
+tabla_datos = [[], [], []]
 
 def SepararTokens():
     contenidos = archivo.readlines()
