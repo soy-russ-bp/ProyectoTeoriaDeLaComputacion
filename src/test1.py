@@ -35,10 +35,16 @@ def IdentificarTipo():
             tokensSeñalados.append(t + "<AS>")
         elif EsIdentificador(t):
             tokensSeñalados.append(t + "<ID>")
+            if( t not in tabla_datos[0]):
+                tabla_datos[0].append(t)
         elif EsNum(t):
             tokensSeñalados.append(t + "<NU>")
+            if( t not in tabla_datos[1]):
+                tabla_datos[1].append(t)
         elif EsTxt(t):
             tokensSeñalados.append(t + "<TX>")
+            if( t not in tabla_datos[2]):
+                tabla_datos[2].append(t)
         else:
             tokensSeñalados.append(t + "<NA>") 
             
@@ -72,6 +78,38 @@ def EsTxt(s):
     else:
         return False
     
+        
+tabla_simbolos = [ [], [], [] ]
+ 
+def Tabla():
+    i=1
+    k=1
+    for fila in tabla_datos:
+        for posicion in fila:
+            if EsIdentificador(posicion):
+                tabla_simbolos[0].append(posicion + ', ' + "ID" + str(i))
+                i += 1
+            elif EsTxt(posicion):
+                tabla_simbolos[1].append(posicion + ', ' + "TX" + str(k))
+                k += 1
+            elif EsNum(posicion):
+                tabla_simbolos[2].append(posicion + ', ')
+            
+        
+def TablaTXT(factorialsim):
+    with open(factorialsim, 'w') as archivo:
+        # Identificadores
+        archivo.write("IDS\n")
+        archivo.write('\n'.join(tabla_simbolos[0]) + '\n\n')
+
+        # Números
+        archivo.write("TXT\n")
+        archivo.write('\n'.join(tabla_simbolos[1]) + '\n\n')
+
+        # Textos
+        archivo.write("VAL\n")
+        archivo.write('\n'.join(tabla_simbolos[2]) + '\n')
+
 def ImprimirTest():
     for t in tokensSeñalados:
         print(t)
@@ -79,6 +117,9 @@ def ImprimirTest():
 SepararTokens()
 IdentificarTipo()
 ImprimirTest()
+Tabla()
+TablaTXT("factorialsim.txt")
+ImprimirTabla()
 
 
 
