@@ -114,7 +114,7 @@ SepararTokens()
 IdentificarTipo()
 #ImprimirTest()
 Tabla()
-TablaTXT("factorialsim.txt")
+TablaTXT("programasim.txt")
 
 
 
