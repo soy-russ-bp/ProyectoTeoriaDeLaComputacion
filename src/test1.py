@@ -93,7 +93,9 @@ def Tabla():
                 tabla_simbolos[1].append(posicion + ', ' + "TX" + str(k))
                 k += 1
             elif EsNum(posicion):
+
                 tabla_simbolos[2].append(posicion + ', ' + str(HexaADecimal(str(posicion))) )
+
             
         
 def TablaTXT(factorialsim):
@@ -102,17 +104,20 @@ def TablaTXT(factorialsim):
         archivo.write("IDS\n")
         archivo.write('\n'.join(tabla_simbolos[0]) + '\n\n')
 
+
         # Textos
         archivo.write("TXT\n")
         archivo.write('\n'.join(tabla_simbolos[1]) + '\n\n')
 
         # Números
+
         archivo.write("VAL\n")
         archivo.write('\n'.join(tabla_simbolos[2]) + '\n')
 
 def ImprimirTest():
     for t in tokensSeñalados:
         print(t)
+
 
 def HexaADecimal(hex_number):
     decimal_number = int(hex_number, 16)
@@ -121,11 +126,13 @@ def HexaADecimal(hex_number):
 #y generará los archivos “factorial.lex” con la siguiente secuencia de tokens:... (@Arturo, creo que falta eso, es decir,
 # imprime en la consola, pero no genera el archivo factorial.txt)
 
+
 SepararTokens()
 IdentificarTipo()
 ImprimirTest()
 Tabla()
 TablaTXT("factorialsim.txt")
+
 #ImprimirTabla() #no sé qué es, pero no estaba hecha esta función, así que comenté la línea
 
 #y el archivo“factorial.sim”con los siguientes arreglos de símbolos:
