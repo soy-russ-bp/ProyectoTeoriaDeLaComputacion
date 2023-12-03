@@ -1,0 +1,14 @@
+IDS
+factorial, ID1
+VarX, ID2
+VarY, ID3
+Num, ID4
+
+TXT
+"Factorial de ", TX1
+" es ", TX2
+
+VAL
+0xF, 15
+0x1A, 26
+0x1, 1

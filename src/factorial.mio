@@ -1,9 +1,11 @@
 # Programa que calcula el factorial de un número
 PROGRAMA factorial
 # VarXacumula los productos por iteración
-VarX = 0x1
+
+VarX = 0xF
 # VarY contiene el iterador del factor
-VarY = 0x0
+VarY = 0x1A
+
 LEE Num
 #  Aplica Num! = 1 * 2 * 3 * ... * Num
 REPITE Num VECES
