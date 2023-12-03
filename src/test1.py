@@ -100,7 +100,6 @@ def Tabla():
 
                 tabla_simbolos[2].append(posicion + ', ' + str(HexaADecimal(str(posicion))) )
 
-              
 def FACTORIALSIM(factorialsim):
     with open(factorialsim, 'w') as archivo:
         # Identificadores
@@ -114,10 +113,6 @@ def FACTORIALSIM(factorialsim):
         # Números
         archivo.write("VAL\n")
         archivo.write('\n'.join(tabla_simbolos[2]) + '\n')
-
-def ImprimirTest():
-    for t in tokensSeñalados:
-        print(t)
 
 def HexaADecimal(hex_number):
     decimal_number = int(hex_number, 16)
@@ -142,7 +137,4 @@ Tabla()
 FACTORIALSIM("factorial.sim")
 FactorialLEX()
 UNIDADESINCORRECTAS()
-
-
-
 
