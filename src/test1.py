@@ -1,5 +1,5 @@
 
-archivo = open("testfile.txt", "r")
+archivo = open("factorialE1.mio", "r")
 
 reservadas = ["PROGRAMA", "FINPROG", "SI", "ENTONCES", "SINO", "FINSI", "REPITE", "VECES", "FINREP", "IMPRIME", "LEE"]
 operadoresA = ["+", "-", "*", "/"]
@@ -7,6 +7,7 @@ operadoresR = [">", "<", "=="]
 asignacion = ["="]
 
 tokensSeñalados = []
+tokens_NA = []
 tabla_datos = [[], [], []]
 
 def SepararTokens():
@@ -24,29 +25,32 @@ def SepararTokens():
                 
     
 def IdentificarTipo():
+    num_linea=1
     for t in tokens:
+        num_linea+=1
         if t in reservadas:
-            tokensSeñalados.append(t + "<PR>")
+            tokensSeñalados.append(t)
         elif t in operadoresA:
-            tokensSeñalados.append(t + "<OA>")
+            tokensSeñalados.append("[op_ar]")
         elif t in operadoresR:
-            tokensSeñalados.append(t + "<OR>")
+            tokensSeñalados.append("[op_rel]")
         elif t in asignacion:
-            tokensSeñalados.append(t + "<AS>")
+            tokensSeñalados.append(t)
         elif EsIdentificador(t):
-            tokensSeñalados.append(t + "<ID>")
+            tokensSeñalados.append("[id]")
             if( t not in tabla_datos[0]):
                 tabla_datos[0].append(t)
         elif EsNum(t):
-            tokensSeñalados.append(t + "<NU>")
+            tokensSeñalados.append("[val]")
             if( t not in tabla_datos[1]):
                 tabla_datos[1].append(t)
         elif EsTxt(t):
-            tokensSeñalados.append(t + "<TX>")
+            tokensSeñalados.append("[txt]")
             if( t not in tabla_datos[2]):
                 tabla_datos[2].append(t)
         else:
             tokensSeñalados.append(t + "<NA>") 
+            tokens_NA.append(t + ", " + str(num_linea))
             
 def EsIdentificador(s):
     if s[0].isalpha() and len(s) <= 16:
@@ -93,20 +97,21 @@ def Tabla():
                 tabla_simbolos[1].append(posicion + ', ' + "TX" + str(k))
                 k += 1
             elif EsNum(posicion):
-                tabla_simbolos[2].append(posicion + ', ')
-            
-        
-def TablaTXT(factorialsim):
+
+                tabla_simbolos[2].append(posicion + ', ' + str(HexaADecimal(str(posicion))) )
+
+              
+def FACTORIALSIM(factorialsim):
     with open(factorialsim, 'w') as archivo:
         # Identificadores
         archivo.write("IDS\n")
         archivo.write('\n'.join(tabla_simbolos[0]) + '\n\n')
 
-        # Números
+        # Textos
         archivo.write("TXT\n")
         archivo.write('\n'.join(tabla_simbolos[1]) + '\n\n')
 
-        # Textos
+        # Números
         archivo.write("VAL\n")
         archivo.write('\n'.join(tabla_simbolos[2]) + '\n')
 
@@ -114,12 +119,29 @@ def ImprimirTest():
     for t in tokensSeñalados:
         print(t)
 
+def HexaADecimal(hex_number):
+    decimal_number = int(hex_number, 16)
+    return decimal_number
+
+def FactorialLEX():
+    archivo = open("factorial.lex", 'w')
+    for linea in tokensSeñalados:
+        archivo.write(linea)
+        archivo.write('\n')
+
+def UNIDADESINCORRECTAS():
+     archivo = open("Tokens_ERROR", 'w')
+     archivo.write("Unidades lexicas incorrectas\n")
+     for token in tokens_NA:
+            archivo.write(token + '\n')
+       
+        
 SepararTokens()
 IdentificarTipo()
-ImprimirTest()
 Tabla()
-TablaTXT("factorialsim.txt")
-ImprimirTabla()
+FACTORIALSIM("factorial.sim")
+FactorialLEX()
+UNIDADESINCORRECTAS()
 
 
 
