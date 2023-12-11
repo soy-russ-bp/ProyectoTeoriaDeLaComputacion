@@ -1,5 +1,5 @@
 
-archivo = open("factorialE1.mio", "r")
+archivo = open("factorial.mio", "r")
 
 reservadas = ["PROGRAMA", "FINPROG", "SI", "ENTONCES", "SINO", "FINSI", "REPITE", "VECES", "FINREP", "IMPRIME", "LEE"]
 operadoresA = ["+", "-", "*", "/"]
@@ -100,6 +100,7 @@ def Tabla():
 
                 tabla_simbolos[2].append(posicion + ', ' + str(HexaADecimal(str(posicion))) )
 
+              
 def FACTORIALSIM(factorialsim):
     with open(factorialsim, 'w') as archivo:
         # Identificadores
@@ -113,6 +114,7 @@ def FACTORIALSIM(factorialsim):
         # Números
         archivo.write("VAL\n")
         archivo.write('\n'.join(tabla_simbolos[2]) + '\n')
+
 
 def HexaADecimal(hex_number):
     decimal_number = int(hex_number, 16)
@@ -137,4 +139,7 @@ Tabla()
 FACTORIALSIM("factorial.sim")
 FactorialLEX()
 UNIDADESINCORRECTAS()
+
+
+
 
